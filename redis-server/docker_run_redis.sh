@@ -1,3 +1,5 @@
 
-docker ps -a | grep redis-proxy | awk '{print $1}' | xargs docker rm -f
-docker run -itd --name redis-proxy redis --requirepass 123456
+container_name="proxy_redis"
+
+docker ps -a | grep $container_name | awk '{print $1}' | xargs docker rm -f
+docker run -itd --name $container_name --network fin-network redis --requirepass 123456
