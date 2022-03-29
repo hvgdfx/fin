@@ -4,7 +4,7 @@ MAINTAINER 007
 
 WORKDIR /work
 
-COPY . .
+COPY ./requirements.txt .
 
 # runtime environment
 RUN pip install --upgrade pip
