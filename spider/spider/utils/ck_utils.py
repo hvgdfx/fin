@@ -10,7 +10,7 @@ class CKClient:
     def show_databases(self):
         return self.client.execute("show databases;")
 
-    def create_db(self, db_name, db_fields_map):
+    def create_db(self, db_name):
         pass
 
     def insert_table(self, table_name):
