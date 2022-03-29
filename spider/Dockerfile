@@ -6,6 +6,9 @@ WORKDIR /work
 
 COPY ./requirements.txt .
 
+# apk repository
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
 # runtime environment
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple/
 RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
