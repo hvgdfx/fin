@@ -17,6 +17,8 @@ class CKClient:
         pass
 
 
+client = CKClient()
+
 if __name__ == '__main__':
     client = CKClient()
     result = client.show_databases()
