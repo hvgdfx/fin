@@ -1,8 +1,12 @@
 
+container_name="proxy_pool"
 
-docker images | grep proxy_pool | awk '{print $3}' | xargs docker rmi
-docker ps -a  | grep proxy_pool | awk '{print $1}' | xargs docker rm -f
+docker images | grep $container_name | awk '{print $3}' | xargs docker rmi
+docker ps -a  | grep $container_name | awk '{print $1}' | xargs docker rm -f
 
-docker build -t proxy_pool:1.0 .
+docker build -t ${container_name}:1.0 .
 
-docker run -it --name proxy_pool --network fin-network proxy_pool:1.0
+docker run -it --name ${container_name} --network fin-network --network-alias ${container_name} ${container_name}:1.0
+
+
+
