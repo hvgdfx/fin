@@ -15,3 +15,9 @@ class CKClient:
 
     def insert_table(self, table_name):
         pass
+
+
+if __name__ == '__main__':
+    client = CKClient()
+    result = client.show_databases()
+    print(result)
