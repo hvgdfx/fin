@@ -15,7 +15,7 @@ class CKClient:
         self.username = "default"
         self.passwd = "click!@#123"
 
-        host_ip = "127.0.0.1" if is_test_enviroment else "172.19.0.1"
+        host_ip = "127.0.0.1" if is_test_enviroment else "host.docker.internal"
         self.client = Client(host=host_ip, port=9000, user=self.username, password=self.passwd)
 
     def show_databases(self):
