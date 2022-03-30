@@ -1,12 +1,13 @@
 from clickhouse_driver import Client
 import sys
 
-sys.path.append("../../../")
+sys.path.append("/work/spider")
+sys.path.append("/home/prod/007/fin/spider")
 
 for i in sys.path:
     print(i)
 
-from spider.spider.utils.test_utils import is_test_enviroment
+from spider.utils.test_utils import is_test_enviroment
 
 
 class CKClient:
