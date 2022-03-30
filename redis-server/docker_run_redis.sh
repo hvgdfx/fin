@@ -5,6 +5,6 @@ docker ps -a | grep $container_name | awk '{print $1}' | xargs docker rm -f
 docker run -itd \
   --name $container_name \
   --network host \
-  --network-alias $container_name \
+  --hostname $container_name \
   redis \
-  --requirepass 123456 
+  --requirepass 123456
