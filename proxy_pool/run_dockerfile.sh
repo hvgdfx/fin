@@ -9,7 +9,7 @@ docker build -t ${container_name}:1.0 .
 docker run -itd \
   --name ${container_name} \
   --network host \
-  --network-alias ${container_name} \
+  --hostname $container_name \
   ${container_name}:1.0
 
 
