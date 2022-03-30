@@ -1,7 +1,7 @@
 from clickhouse_driver import Client
 import sys
 
-sys.path.append("../../../../")
+sys.path.append("../../../")
 
 from spider.spider.utils.test_utils import is_test_enviroment
 
