@@ -6,7 +6,7 @@ class CKClient:
         self.username = "default"
         self.passwd = "click!@#123"
 
-        self.client = Client(host="120.132.33.146", port="9000", user=self.username, password=self.passwd)
+        self.client = Client(host="127.0.0.1", port=9000, user=self.username, password=self.passwd)
 
     def show_databases(self):
         return self.client.execute("show databases;")
