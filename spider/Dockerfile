@@ -4,7 +4,7 @@ MAINTAINER 007
 
 WORKDIR /work
 
-COPY ./requirements.txt .
+COPY . .
 
 # apk repository
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
