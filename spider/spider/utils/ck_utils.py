@@ -3,6 +3,9 @@ import sys
 
 sys.path.append("../../../")
 
+for i in sys.path:
+    print(i)
+
 from spider.spider.utils.test_utils import is_test_enviroment
 
 
