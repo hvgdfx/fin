@@ -7,6 +7,6 @@ docker build -t ${container_name}:1.0 .
 docker run -it \
   --name ${container_name} \
   --net host \
-  --network fin-network \
+  --network host \
   --network-alias ${container_name} \
   ${container_name}:1.0 \
