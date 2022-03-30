@@ -1,4 +1,9 @@
 from clickhouse_driver import Client
+import sys
+
+sys.path.append("../../../../")
+
+from spider.spider.utils.test_utils import is_test_enviroment
 
 
 class CKClient:
@@ -6,7 +11,8 @@ class CKClient:
         self.username = "default"
         self.passwd = "click!@#123"
 
-        self.client = Client(host="127.0.0.1", port=9000, user=self.username, password=self.passwd)
+        host_ip = "127.0.0.1" if is_test_enviroment else "172.19.0.1"
+        self.client = Client(host=host_ip, port=9000, user=self.username, password=self.passwd)
 
     def show_databases(self):
         return self.client.execute("show databases;")
