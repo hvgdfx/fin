@@ -7,6 +7,7 @@ docker build -t ${container_name}:1.0 .
 docker run -it \
   --name ${container_name} \
   --network host \
+  --hostname $container_name \
   ${container_name}:1.0 \
 
 
