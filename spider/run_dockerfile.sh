@@ -8,5 +8,7 @@ docker run -it \
   --name ${container_name} \
   --net host \
   --network host \
-  --network-alias ${container_name} \
   ${container_name}:1.0 \
+
+
+  #--network-alias ${container_name} \
