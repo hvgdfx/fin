@@ -6,5 +6,5 @@ docker run -itd \
   --name $container_name \
   --network host \
   --network-alias $container_name \
-  --requirepass 123456 \
-  redis
+  redis \
+  --requirepass 123456 
