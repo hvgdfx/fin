@@ -6,4 +6,4 @@ docker run -itd \
   --name $container_name \
   --net host \
   -v /home/prod/007/fin/redis-server/redis.conf:/etc/redis/redis.conf \
-  redis
+  -d redis redis-server /etc/redis/redis.conf
