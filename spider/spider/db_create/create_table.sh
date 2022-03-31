@@ -2,8 +2,8 @@
 
 
 sql=""
-sql="${sql}create database stock;"
-sql="${sql}use stock;create table stock_list (code string, name string);"
+sql="${sql}create database IF NOT EXISTS stock;"
+sql="${sql}use stock;create table IF NOT EXISTS stock_list (code string, name string);"
 
 
 clickhouse-client \
