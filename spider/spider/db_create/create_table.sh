@@ -1,8 +1,9 @@
 
 
 
-
-sql="create database stock;"
+sql=""
+sql="${sql}create database stock;"
+sql="${sql}use stock;create table stock_list (code string, name string);"
 
 
 clickhouse-client \
