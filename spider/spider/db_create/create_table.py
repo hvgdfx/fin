@@ -1,4 +1,9 @@
-from spider.spider.utils.ck_utils import client
+import sys
+
+sys.path.append("/work")
+sys.path.append("/home/prod/007/fin/spider")
+
+from spider.utils.ck_utils import client
 
 
 def create_stock_db():

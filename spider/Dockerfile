@@ -16,3 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua
 
 CMD ["python3", "/work/spider/utils/ck_utils.py"]
 #CMD ["python3", "/work/spider/request_test.py"]
+#CMD ["python3", "/work/spider/db_create/create_table.py"]
