@@ -8,7 +8,7 @@ sql="${sql}use stock;create table IF NOT EXISTS
           code String,
           type String,
           market String,
-          dt String
+          dt Date
           ) ENGINE = MergeTree()
           PARTITION BY dt order by dt;"
 
