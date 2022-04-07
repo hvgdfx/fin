@@ -18,19 +18,8 @@ class CKClient:
         host_ip = "127.0.0.1" if is_test_enviroment else "localhost"
         self.client = Client(host=host_ip, port=9000, user=self.username, password=self.passwd)
 
-    def show_databases(self):
-        return self.client.execute("show databases;")
-
-    def create_db(self, db_name):
-        pass
-
-    def insert_table(self, table_name):
-        pass
-
 
 client = CKClient()
 
 if __name__ == '__main__':
     client = CKClient()
-    result = client.show_databases()
-    print(result)
