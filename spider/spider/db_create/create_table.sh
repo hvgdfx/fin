@@ -13,11 +13,10 @@ sql="${sql}create database IF NOT EXISTS stock;"
 
 sql="${sql}use stock;create table IF NOT EXISTS
           trade_date (
-          dt String,
-          isOpen String,
-          dt String
-          ) ENGINE = MergeTree
-          PARTITION BY dt;"
+          dt Date,
+          isOpen String
+          ) ENGINE = Log;
+          "
 
 clickhouse-client \
   --host localhost \
