@@ -17,7 +17,7 @@ def create_stock_db():
 
 def create_stock_list_table():
     try:
-        client.execute("create table ")
+        client.client.execute("create table ")
         return True
     except Exception as e:
         print(e)
