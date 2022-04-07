@@ -3,13 +3,14 @@
 
 sql=""
 sql="${sql}create database IF NOT EXISTS stock;"
-#sql="${sql}use stock;create table IF NOT EXISTS
-#          stock_list (
-#          code String,
-#          name String,
-#          dt String
-#          ) ENGINE = MergeTree
-#          PARTITION BY dt;"
+sql="${sql}use stock;create table IF NOT EXISTS
+          list_stock (
+          code String,
+          type String,
+          market String,
+          dt String
+          ) ENGINE = MergeTree()
+          PARTITION BY dt order by dt;"
 
 sql="${sql}use stock;create table IF NOT EXISTS
           trade_date (
