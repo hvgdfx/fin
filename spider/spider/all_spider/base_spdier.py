@@ -1,11 +1,13 @@
 import sys
 import requests
 import abc
+from typing import List
 
 sys.path.append("/work")
 sys.path.append("/home/prod/007/fin/spider")
 
 from spider.utils.ck_utils import client
+from spider.utils.proxy_utils import get_proxy
 
 
 class BaseSpider(object):
@@ -26,8 +28,8 @@ class BaseSpider(object):
                 self.schedule_per_request(request_param)
 
     @abc.abstractmethod
-    def get_urls(self):
-        pass
+    def get_urls(self) -> List[str]:
+        raise NotImplementedError
 
     def schedule_per_request(self, request_param):
         # 1. parse request_param
@@ -39,12 +41,14 @@ class BaseSpider(object):
 
     def spidering(self):
         # 1. 先获取代理地址
-        proxy = self.get_proxy()
+        proxy = get_proxy()
 
         # 2. 获取请求
         try:
 
-            response = requests.get(url=self.url, headers=self.header, proxy=proxy) # todo user-agent
+            response = requests.get(url=self.url,
+                                    headers=self.header,
+                                    proxy=proxy) # todo user-agent
             if response:
                 if response.status_code == 200:
                     self.response_result = response.json()
@@ -57,7 +61,7 @@ class BaseSpider(object):
 
     @abc.abstractmethod
     def parse_spidered_result(self):
-        pass
+        raise NotImplementedError
 
     def write_to_db(self):
         values_str = self.insert_values  # todo parse values and 判断values的个数
@@ -66,18 +70,3 @@ class BaseSpider(object):
         # print(sql)
         # client.execute(sql)
 
-    def get_proxy(self):
-        proxy = ""
-        # todo while alter
-        try:
-            response = requests.get("http://localhost:5010/get")
-            if response:
-                if response.status_code == 200:
-                    proxy = response.json()["proxy"]
-                else:
-                    print("proxy status code is not 200")
-            else:
-                print("proxy response is None")
-        except Exception as e:
-            print(e)
-        return proxy
