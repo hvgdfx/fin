@@ -2,6 +2,7 @@ import sys
 import requests
 import abc
 from typing import List
+from fake_useragent import UserAgent
 
 sys.path.append("/work")
 sys.path.append("/home/prod/007/fin/spider")
@@ -17,7 +18,7 @@ class BaseSpider(object):
         self.insert_values = ""
         self.request_params = []
         self.url = ""
-        self.header = {}
+        self.header = {"user-agent", UserAgent()}
         self.response_result = None
 
     def schedule(self):
@@ -48,7 +49,8 @@ class BaseSpider(object):
 
             response = requests.get(url=self.url,
                                     headers=self.header,
-                                    proxy=proxy) # todo user-agent
+                                    proxy=proxy,
+                                    )
             if response:
                 if response.status_code == 200:
                     self.response_result = response.json()
@@ -63,10 +65,11 @@ class BaseSpider(object):
     def parse_spidered_result(self):
         raise NotImplementedError
 
-    def write_to_db(self):
+    def write_to_db(self, values: List) -> bool:
         values_str = self.insert_values  # todo parse values and 判断values的个数
 
-        # sql = f"insert into {self.tb_name} VALUES ({})"
+        # sql = f"insert into {self.tb_name} VALUES ({values})"
         # print(sql)
-        # client.execute(sql)
+        # r = client.execute(sql)
+        # print(r)
 
