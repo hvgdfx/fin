@@ -6,8 +6,7 @@ USER root
 
 WORKDIR /opt/bitnami/kafka
 
-ADD server.properties ./config
-ADD sources.list ./
+ADD . ./
 
 RUN alias ll='ls -l' \
     && mv /etc/apt/sources.list /etc/apt/sources.list.bak \
