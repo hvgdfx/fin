@@ -2,6 +2,8 @@
 
 cd /zookeeper-3.4.14
 
-./bin/zkServer.sh start /zookeeper-3.4.14/conf/zoo.cfg
+./bin/zkServer.sh start ./conf/zoo.cfg
 
-#CMD ["sh", "-c", "while true; do sleep 1; done"]
+while true;
+  do sleep 3600;
+  done
