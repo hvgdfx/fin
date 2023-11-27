@@ -1,4 +1,4 @@
 
 
-FROM bitnami/kafka:3.3
+FROM bitnami/kafka:2.2.0
 
