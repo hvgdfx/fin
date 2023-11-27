@@ -1,14 +1,36 @@
 
-cd /opt/bitnami/kafka
+name='mykafka'
 
-./bin/zookeeper-server-start.sh ./config/zookeeper.properties &
+docker images | grep ${name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 
-sleep 10
+broker1_name="${name}_broker1"
+docker images | grep ${broker1_name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${broker1_name} | awk '{print $1}' | xargs docker rm -f
+broker2_name="${name}_broker2"
+docker images | grep ${broker2_name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${broker2_name} | awk '{print $1}' | xargs docker rm -f
+broker3_name="${name}_broker3"
+docker images | grep ${broker3_name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${broker3_name} | awk '{print $1}' | xargs docker rm -f
 
-nohup ./bin/kafka-server-start.sh ./server1.properties > ./logs/broker1/server.log 2>&1 &
-nohup ./bin/kafka-server-start.sh ./server2.properties > ./logs/broker2/server.log 2>&1 &
-nohup ./bin/kafka-server-start.sh ./server3.properties > ./logs/broker3/server.log 2>&1 &
 
-while true;
-  do sleep 3600;
-  done
+docker build -t ${broker1_name}:1.0 --no-cache -f ./broker1.Dockerfile .
+docker run -d --name ${broker1_name} --user root --network host ${broker1_name}:1.0
+
+docker build -t ${broker2_name}:1.0 --no-cache -f ./broker1.Dockerfile .
+docker run -d --name ${broker2_name} --user root --network host ${broker2_name}:1.0
+
+docker build -t ${broker3_name}:1.0 --no-cache -f ./broker3.Dockerfile .
+docker run -d --name ${broker3_name} --user root --network host ${broker3_name}:1.0
+
+brokers=("broker1", "broker2", "broker3")
+
+#for broker in "${brokers[@]}";
+#do
+#  broker_name="${name}_${broker}"
+#  docker images | grep ${broker_name} | awk '{print $3}' | xargs docker rmi -f
+#  docker ps -a | grep ${broker_name} | awk '{print $1}' | xargs docker rm -f
+#  docker build -t ${broker_name}:1.0 --no-cache -f ./${broker}.Dockerfile .
+#  docker run -d --name ${broker_name} --user root --network host ${broker_name}:1.0
+#done
