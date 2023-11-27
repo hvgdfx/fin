@@ -6,6 +6,6 @@ WORKDIR /opt/bitnami/kafka
 
 ADD server.properties ./config
 
-RUN alias ll='ls -l' \
+RUN alias ll='ls -l'
 
 CMD ["sh", "-c", "while true; do sleep 1; done"]
