@@ -7,4 +7,4 @@ docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 
 
 docker build -t ${name}:1.0 --no-cache -f ./Dockerfile .
-docker run -d --name ${name} --user root --network host ${name}:1.0
+docker run -d --name ${name} --user root -p 2181:62181 ${name}:1.0
