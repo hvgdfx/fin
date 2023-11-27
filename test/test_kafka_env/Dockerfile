@@ -2,6 +2,8 @@
 
 FROM bitnami/kafka:2.2.0
 
+USER root
+
 WORKDIR /opt/bitnami/kafka
 
 RUN echo "@@@@@@@@@@@@@@@@" \
