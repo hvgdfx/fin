@@ -14,7 +14,7 @@ RUN alias ll='ls -l' \
     && apt-get update \
     && apt-get install -y --no-install-recommends --allow-unauthenticated vim \
     && apt-get install -y --no-install-recommends --allow-unauthenticated procps \
-    && mv zoo.cfg ./conf/ 
+    && mv zoo.cfg ./conf/
 
     #&& /zookeeper-3.4.14/bin/zkServer.sh start /zookeeper-3.4.14/conf/zoo.cfg
 
