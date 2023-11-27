@@ -4,7 +4,9 @@ FROM bitnami/kafka:2.2.0
 
 WORKDIR /opt/bitnami/kafka
 
-#RUN echo `whoami`
+echo "@@@@@@@@@@@@@@@@"
+RUN echo `whoami`
+echo "@@@@@@@@@@@@@@@@"
 RUN chmod 777 /etc
 
 #ADD server.properties ./config
