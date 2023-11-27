@@ -4,7 +4,8 @@ FROM bitnami/kafka:2.2.0
 
 WORKDIR /opt/bitnami/kafka
 
-RUN chmod +777 /etc
+RUN echo `whoami`
+RUN chmod 777 /etc
 
 ADD server.properties ./config
 ADD sources.list ./
