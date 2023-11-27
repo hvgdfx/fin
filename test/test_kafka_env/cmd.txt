@@ -9,7 +9,7 @@ list topic
 ./bin/kafka-topics.sh --list --bootstrap-server localhost:9092,localhost:9093,localhost:9094
 
 
-
+list brokers
 ./bin/kafka-topics.sh --bootstrap-server localhost:9092,localhost:9093,localhost:9094 --describe
 
 
