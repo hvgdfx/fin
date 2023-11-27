@@ -14,7 +14,9 @@ RUN alias ll='ls -l' \
     && apt-get update \
     && apt-get install -y --no-install-recommends --allow-unauthenticated vim \
     && apt-get install -y --no-install-recommends --allow-unauthenticated procps \
-    && mv zoo.cfg ./conf/ \
-    && /zookeeper-3.4.14/bin/zkServer.sh start /zookeeper-3.4.14/conf/zoo.cfg
+    && mv zoo.cfg ./conf/ 
 
-CMD ["sh", "-c", "while true; do sleep 1; done"]
+    #&& /zookeeper-3.4.14/bin/zkServer.sh start /zookeeper-3.4.14/conf/zoo.cfg
+
+CMD ["./bin/zkServer.sh", "start", "./conf/zoo.cfg"]
+#CMD ["sh", "-c", "while true; do sleep 1; done"]
