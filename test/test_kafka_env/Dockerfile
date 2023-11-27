@@ -6,18 +6,13 @@ USER root
 
 WORKDIR /opt/bitnami/kafka
 
-RUN echo "@@@@@@@@@@@@@@@@" \
-    && echo `whoami` \
-    && echo "@@@@@@@@@@@@@@@@" \
-    && chmod 777 /etc
+ADD server.properties ./config
+ADD sources.list ./
 
-#ADD server.properties ./config
-#ADD sources.list ./
-
-#RUN alias ll='ls -l' \
-#    && mv /etc/apt/sources.list /etc/apt/sources.list.bak \
-#    && cp sources.list /etc/apt/sources.list \
-#    && DEBIAN_FRONTEND=noninteractive apt-get update
+RUN alias ll='ls -l' \
+    && mv /etc/apt/sources.list /etc/apt/sources.list.bak \
+    && cp sources.list /etc/apt/sources.list \
+    && DEBIAN_FRONTEND=noninteractive apt-get update
 
 
 CMD ["sh", "-c", "while true; do sleep 1; done"]
