@@ -14,7 +14,7 @@ RUN alias ll='ls -l' \
     && cp sources.list /etc/apt/sources.list \
     && ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone
-RUN apt-get install -y --no-install-recommends vim
+RUN apt-get install -y vim
 
 
 CMD ["sh", "-c", "while true; do sleep 1; done"]
