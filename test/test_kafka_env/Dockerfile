@@ -17,4 +17,5 @@ RUN alias ll='ls -l' \
     && apt-get install -y --no-install-recommends --allow-unauthenticated vim
 
 
-CMD ["sh", "-c", "while true; do sleep 1; done"]
+#CMD ["sh", "-c", "while true; do sleep 1; done"]
+CMD ["sh", "./run_kafka.sh"]

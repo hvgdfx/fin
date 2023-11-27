@@ -5,4 +5,4 @@ cd /opt/bitnami/kafka
 
 sleep 10
 
-./bin/kafka-server-start.sh ./config/server.properties &
+./bin/kafka-server-start.sh ./server.properties
