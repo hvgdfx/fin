@@ -24,7 +24,7 @@ name='mykafka'
 #docker build -t ${broker3_name}:1.0 --no-cache -f ./broker2.Dockerfile .
 #docker run -d --name ${broker3_name} --user root --network host ${broker3_name}:1.0
 
-brokers=("broker0", "broker1", "broker2")
+brokers=("broker0" "broker1" "broker2")
 
 for broker in "${brokers[@]}";
 do
