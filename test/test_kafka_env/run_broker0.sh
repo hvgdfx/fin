@@ -1,6 +1,8 @@
 
 cd /opt/bitnami/kafka
 
+alias ll='ls -l'
+
 sleep 10
 
 #nohup ./bin/kafka-server-start.sh ./server0.properties > ./logs/broker0/server.log 2>&1 &

@@ -16,4 +16,6 @@ RUN alias ll='ls -l' \
     && apt-get update \
     && apt-get install -y --no-install-recommends --allow-unauthenticated vim
 
+ENV
+
 CMD ["sh", "./run_broker2.sh"]
