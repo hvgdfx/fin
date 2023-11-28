@@ -35,6 +35,6 @@ do
   docker run -d --name ${broker_name} \
                 --user root \
                 --network host \
-                -v /data1/kafka_data/${broker}:/opt/bitnami/kafka/logs/${broker}
+                -v /data1/kafka_data/${broker}:/opt/bitnami/kafka/logs/${broker} \
                 ${broker_name}:1.0
 done
