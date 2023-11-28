@@ -32,5 +32,9 @@ do
   docker images | grep ${broker_name} | awk '{print $3}' | xargs docker rmi -f
   docker ps -a | grep ${broker_name} | awk '{print $1}' | xargs docker rm -f
   docker build -t ${broker_name}:1.0 --no-cache -f ./${broker}.Dockerfile .
-  docker run -d --name ${broker_name} --user root --network host ${broker_name}:1.0
+  docker run -d --name ${broker_name} \
+                --user root \
+                --network host \
+                -v /data1/kafka_data/${broker}:/opt/bitnami/kafka/logs/${broker}
+                ${broker_name}:1.0
 done
