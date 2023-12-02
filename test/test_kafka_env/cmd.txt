@@ -23,3 +23,10 @@ producer
 
 consumer
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:59092,localhost:59091,localhost:59090 --topic test --from-beginning
+
+list group
+./bin/kafka-consumer-groups.sh --bootstrap-server localhost:59092,localhost:59091,localhost:59090 --list
+
+list group subscribe
+./bin/kafka-consumer-groups.sh --bootstrap-server localhost:59092,localhost:59091,localhost:59090 --describe --group your_consumer_group_id
+
