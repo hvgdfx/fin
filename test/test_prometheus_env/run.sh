@@ -1,3 +1,6 @@
 
 
-docker run -p 59080:9090 bitnami/prometheus:2.48.0
+docker run \
+  --web.listen-address=:59080 \
+  -v prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml \
+  bitnami/prometheus:2.48.0
