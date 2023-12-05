@@ -51,7 +51,7 @@ def insert_all_trade_date(dt):
             splits = line.replace("\n", "").split(",")
             dt = splits[0]
             isOpen = splits[1]
-            # client.client.execute(f"insert into stock.trade_date VALUES ('{dt}', '{isOpen}')")
+            client.client.execute(f"insert into stock.trade_date VALUES ('{dt}', '{isOpen}')")
             print(f"{dt},{isOpen}")
 
 
