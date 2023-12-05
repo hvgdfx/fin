@@ -1,4 +1,4 @@
-import baostock as bs
+# import baostock as bs
 import sys, os
 import argparse
 
@@ -45,7 +45,7 @@ def insert_all_trade_date(dt):
         pass
     else:
         print(f"file not exists. {file_path}")
-        return 
+        return
     with open(file_path) as f:
         for line in f.readlines():
             splits = line.split(",")
