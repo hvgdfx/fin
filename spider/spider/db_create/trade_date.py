@@ -1,5 +1,6 @@
 import baostock as bs
 import sys, os
+import argparse
 
 sys.path.append("/work")
 sys.path.append("/home/prod/007/fin/spider")
@@ -44,9 +45,14 @@ def insert_all_trade_date():
             splits = line.split(",")
             dt = splits[0]
             isOpen = splits[1]
-            client.client.execute(f"insert into stock.trade_date VALUES ('{dt}', '{isOpen}')")
+            # client.client.execute(f"insert into stock.trade_date VALUES ('{dt}', '{isOpen}')")
+            print(f"{dt},{isOpen}")
 
 
 if __name__ == '__main__':
-    get_all_trade_date()
-    insert_all_trade_date()
+    parser = argparse.ArgumentParser(description="通过日期来上传交易日期")
+    parser.add_argument("dt", type=str, help="交易日期的年份，比如2023")
+
+    args = parser.parse_args()
+
+    insert_all_trade_date(args.dt)
