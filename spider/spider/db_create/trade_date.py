@@ -40,7 +40,7 @@ def get_all_trade_date():
 
 def insert_all_trade_date(dt):
     # file_path = "./all_trade_data.txt"
-    file_path = f"./tradeData_{dt}.txt"
+    file_path = f"./tradeDate_{dt}.txt"
     if os.path.exists(file_path):
         pass
     else:
