@@ -12,11 +12,15 @@ sql="${sql}use stock;create table IF NOT EXISTS
           ) ENGINE = MergeTree()
           PARTITION BY dt order by dt;"
 
-sql="${sql}use stock;create table IF NOT EXISTS
-          trade_date (
-          dt Date,
-          is_open String
-          ) ENGINE = MergeTree();
+sql="${sql}use stock;
+          create table IF NOT EXISTS trade_date
+          (
+            dt Date,
+            is_open String
+          ) ENGINE = MergeTree
+          order by dt
+          primary key dt
+          ;
           "
 
 clickhouse-client \
