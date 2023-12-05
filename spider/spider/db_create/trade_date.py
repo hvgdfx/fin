@@ -38,8 +38,14 @@ def get_all_trade_date():
     bs.logout()
 
 
-def insert_all_trade_date():
-    file_path = "./all_trade_data.txt"
+def insert_all_trade_date(dt):
+    # file_path = "./all_trade_data.txt"
+    file_path = f"./tradeData_{dt}.txt"
+    if os.path.exists(file_path):
+        pass
+    else:
+        print(f"file not exists. {file_path}")
+        return 
     with open(file_path) as f:
         for line in f.readlines():
             splits = line.split(",")
