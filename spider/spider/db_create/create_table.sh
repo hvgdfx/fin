@@ -16,7 +16,7 @@ sql="${sql}use stock;create table IF NOT EXISTS
           trade_date (
           dt Date,
           is_open String
-          ) ENGINE = MergeTree;
+          ) ENGINE = MergeTree();
           "
 
 clickhouse-client \
