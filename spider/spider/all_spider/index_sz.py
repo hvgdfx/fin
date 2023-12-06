@@ -35,8 +35,15 @@ def requset_index_sz():
 
     # 3. response
     resp = requests.get(url=url, headers=headers, proxies=proxies)
-    if resp.status_code == 200:
-        return resp
+    try_count = 0
+    while True:
+        try_count += 1
+        if try_count > 3:
+            break
+        if resp.status_code == 200:
+            return resp
+    return None
+
 
 
 # 2. parse data
@@ -44,6 +51,7 @@ def parse_response(resp):
     result = {}
     try:
         resp = resp.json()
+        result = resp
     except Exception as e:
         print(e)
         return result
@@ -56,9 +64,13 @@ def parse_response(resp):
 # 3. insert data
 
 def run():
-    data = requset_index_sz()
-    print(data)
-    print(list(data.key()))
+    resp = requset_index_sz()
+
+    if resp is None:
+        return
+    
+    data = parse_response(resp)
+    print(list(data.keys()))
 
 
 if __name__ == '__main__':
