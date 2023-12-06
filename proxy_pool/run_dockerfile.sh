@@ -1,16 +1,13 @@
 
-container_name="proxy_pool"
+name="proxy_pool"
 
-docker images | grep $container_name | awk '{print $3}' | xargs docker rmi
-docker ps -a  | grep $container_name | awk '{print $1}' | xargs docker rm -f
+docker images | grep ${name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 
-docker build -t ${container_name}:1.0 .
 
-docker run -itd \
-  --name ${container_name} \
-  --network host \
-  --hostname $container_name \
-  ${container_name}:1.0
+docker build -t ${name}:1.0 --no-cache -f ./Dockerfile .
+docker run -d --name ${name} --user root ${name}:1.0
+
 
 
 
