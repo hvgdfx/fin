@@ -2,6 +2,7 @@ import requests
 from fake_useragent import UserAgent
 from tqdm import tqdm
 import time
+import json
 
 ua = UserAgent()
 
@@ -15,7 +16,8 @@ def requset_index_sz():
         jsonCallBack = "jsonpCallback311835"
         isPagination = "false"
         sqlId = "DB_SZZSLB_ZSLB"
-        url = f"http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack={jsonCallBack}&isPagination={isPagination}&sqlId={sqlId}&_={_}"
+        # url = f"http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack={jsonCallBack}&isPagination={isPagination}&sqlId={sqlId}&_={_}"
+        url = f"http://query.sse.com.cn/commonSoaQuery.do?isPagination={isPagination}&sqlId={sqlId}&_={_}"
 
         # 2. headers
 
@@ -64,7 +66,7 @@ def parse_response(resp):
         return None
     else:
         try:
-            data = resp.text
+            data = resp.json()["result"]
         except Exception as e:
             print(e)
             print(f"parse response {data}")
@@ -92,8 +94,9 @@ def run():
 
     data = parse_response(resp)
     print(type(data))
+    print(data[0])
     print(f"-----------------------------------------------")
-    print(list(data.keys()))
+    # print(list(data.keys()))
 
 
 if __name__ == '__main__':
