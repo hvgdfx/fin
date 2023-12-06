@@ -1,5 +1,6 @@
 
 FROM nginx:stable
 
+add nginx.conf ./
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-c", "nginx.conf", "-g", "daemon off;"]
