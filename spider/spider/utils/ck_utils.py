@@ -4,9 +4,6 @@ import sys
 sys.path.append("/work")
 sys.path.append("/home/prod/007/fin/spider")
 
-for i in sys.path:
-    print(i)
-
 from spider.utils.test_utils import is_test_enviroment
 
 
