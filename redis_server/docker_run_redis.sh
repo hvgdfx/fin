@@ -1,5 +1,5 @@
 
-container_name="proxy_redis"
+container_name="stock_proxy_redis"
 
 docker ps -a | grep $container_name | awk '{print $1}' | xargs docker rm -f
 docker run -itd \

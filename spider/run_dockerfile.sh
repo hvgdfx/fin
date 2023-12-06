@@ -1,5 +1,5 @@
 
-container_name="spider"
+container_name="stock_spider"
 
 docker ps -a  | grep $container_name | awk '{print $1}' | xargs docker rm -f
 
