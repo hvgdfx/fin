@@ -1,5 +1,7 @@
 import requests
 from fake_useragent import UserAgent
+from tqdm import tqdm
+import time
 
 ua = UserAgent()
 
@@ -16,7 +18,7 @@ def requset_index_sz():
         print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
             print("没有http代理可用")
-            return
+            continue
 
         proxies = {
             "http": f"http://{proxy_json['proxy']}"
