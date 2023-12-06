@@ -17,10 +17,9 @@ def requset_index_sz_element():
     while True:
         # 1. url
         _ = str(int(time.time() * 1000))
-        url = f"https://query.sse.com.cn/commonSoaQuery.do?&sqlId=DB_SZZSLB_CFGLB&indexCode=000001&isPagination=true&pageHelp.pageSize=60&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.pageNo=1&pageHelp.endPage=1&_=1701861121120"
+        url = f"https://query.sse.com.cn/commonSoaQuery.do?&sqlId=DB_SZZSLB_CFGLB&indexCode=000001&isPagination=false&_={_}"
 
         # 2. headers
-
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
         print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
@@ -52,7 +51,7 @@ def requset_index_sz_element():
         except Exception as e:
             print(e)
             continue
-        if try_count > 3:
+        if try_count > 10:
             break
         if resp.status_code == 200:
             return resp
@@ -70,11 +69,57 @@ def parse_response(resp):
         return None
     else:
         try:
-            data = resp.json()["pageHelp"]
+            data = resp.json()["pageHelp"]["data"]
         except Exception as e:
             print(e)
             print(f"parse response {data}")
     return data
+
+
+# 3. insert data
+def insert_data_list(data_list):
+    for data in data_list:
+        values = insert_data(data)
+        # print(values)
+        # client.client.execute(f"insert into stock.index_sz VALUES ({values})")
+
+
+def insert_data(data):
+    fileds = [
+        "securityAbbrEn",
+        "securityAbbr",
+        "inDate",
+        "securityCode",
+        "marketSource",
+    ]
+
+    valus = ""
+    print_values = ""
+    count = 0
+    for k, v in data.items():
+        count += 1
+        if k in fileds:
+            valus += f" '{get_str(v)}'"
+            print_values += f" '{get_str(v)}'"
+        else:
+            valus += f" ''"
+            print_values += f" ' ''"
+        if count != len(fileds):
+            valus += ","
+    print(print_values)
+    return valus
+
+
+def get_str(v):
+    if isinstance(v, int):
+        v = str(v)
+    elif isinstance(v, float):
+        v = str(v)
+    elif isinstance(v, str):
+        v = v
+    else:
+        v = json.dumps(v)
+    return v
 
 
 def run():
