@@ -11,7 +11,12 @@ def requset_index_sz():
     try_count = 0
     while True:
         # 1. url
-        url = "http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback311835&isPagination=false&sqlId=DB_SZZSLB_ZSLB&_=1701760270888"
+        _ = str(int(time.time() * 1000))
+        jsonCallBack = "jsonpCallback311835"
+        isPagination = "false"
+        sqlId = "DB_SZZSLB_ZSLB"
+        url = f"http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack={jsonCallBack}&isPagination={isPagination}&sqlId={sqlId}&_={_}"
+
         # 2. headers
 
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
@@ -40,7 +45,7 @@ def requset_index_sz():
         # 3. response
 
         try_count += 1
-        resp = requests.get(url=url, headers=headers, proxies=proxies)
+        resp = requests.get(url=url, headers=headers, proxies=proxies, timeout=(1, 10))
         if try_count > 3:
             break
         if resp.status_code == 200:
