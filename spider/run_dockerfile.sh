@@ -1,13 +1,10 @@
 
-container_name="stock_spider"
+name="stock_spider"
 
-docker ps -a  | grep $container_name | awk '{print $1}' | xargs docker rm -f
+docker images | grep ${name} | awk '{print $3}' | xargs docker rmi -f
+docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 
-docker build -t ${container_name}:1.0 -f Dockerfile .
-docker run -it \
-  --name ${container_name} \
-  --network host \
-  ${container_name}:1.0 \
+docker build -t ${name}:1.0 --no-cache -f ./Dockerfile .
+docker run -d --name ${name} --user root ${name}:1.0
 
 
-  #--network-alias ${container_name} \
