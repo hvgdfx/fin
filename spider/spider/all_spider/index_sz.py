@@ -8,6 +8,12 @@ def requset_index_sz():
     # 1. url
     url = "http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback311835&isPagination=false&sqlId=DB_SZZSLB_ZSLB&_=1701760270888"
     # 2. headers
+    requests.get("")
+
+    proxies = {
+        "http", requests.get("http://stock_proxy:5010/get")
+    }
+
     headers = {
         "user-agent": UserAgent(),
     }
