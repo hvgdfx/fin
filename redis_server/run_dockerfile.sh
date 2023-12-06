@@ -6,4 +6,4 @@ docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 
 
 docker build -t ${name}:1.0 --no-cache -f ./Dockerfile .
-docker run -d --name ${name} --user root ${name}:1.0
+docker run -d --name ${name} --user root --network fin-network ${name}:1.0
