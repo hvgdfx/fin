@@ -3,8 +3,52 @@ from fake_useragent import UserAgent
 from tqdm import tqdm
 import time
 import json
+from spider.utils.ck_utils import client
 
 ua = UserAgent()
+
+
+class IndexSzBean:
+    def __init__(self):
+        self.handbookUrl = ""
+        self.nIndexFullNameEn = ""
+        self.nIndexNameEn = ""
+        self.tIndexCode = ""
+        self.nIndexCode = ""
+        self.indexReleaseChannel = ""
+        self.indexCode = ""
+        self.introEn = ""
+        self.indexFullName = ""
+        self.nIndexFullName = ""
+        self.totalReturnIntro = ""
+        self.tIndexNameEn = ""
+        self.indexFullNameEn = ""
+        self.isNetLncomeIndex = ""
+        self.intro = ""
+        self.tIndexFullName = ""
+        self.indexBaseDay = ""
+        self.ifIndexCode = ""
+        self.numOfStockes = ""
+        self.netReturnIntroEn = ""
+        self.indexBasePoint = ""
+        self.indicsSeqDescEn = ""
+        self.indexName = ""
+        self.netReturnIntro = ""
+        self.isPriceIndex = ""
+        self.updateTime = ""
+        self.indicsSeqDesc = ""
+        self.indexDataSourceType = ""
+        self.launchDay = ""
+        self.methodologyNameEn = ""
+        self.methodologyName = ""
+        self.tIndexFullNameEn = ""
+        self.handbookEnUrl = ""
+        self.indicsSeq = ""
+        self.nIndexName = ""
+        self.indexNameEn = ""
+        self.totalReturnIntroEn = ""
+        self.tIndexName = ""
+        self.isTotalReturnIndex = ""
 
 
 # 1. request
@@ -82,8 +126,79 @@ def parse_data(resp):
 
 
 # 3. insert data
+def insert_data_list(data_list):
+
+    for data in data_list:
+        values = insert_data(data)
+        print(values)
+        # client.client.execute(f"insert into stock.index_sz VALUES ({values})")
+
+
 def insert_data(data):
-    pass
+    fileds = [
+        "handbookUrl",
+        "nIndexFullNameEn",
+        "nIndexNameEn",
+        "tIndexCode",
+        "nIndexCode",
+        "indexReleaseChannel",
+        "indexCode",
+        "introEn",
+        "indexFullName",
+        "nIndexFullName",
+        "totalReturnIntro",
+        "tIndexNameEn",
+        "indexFullNameEn",
+        "isNetLncomeIndex",
+        "intro",
+        "tIndexFullName",
+        "indexBaseDay",
+        "ifIndexCode",
+        "numOfStockes",
+        "netReturnIntroEn",
+        "indexBasePoint",
+        "indicsSeqDescEn",
+        "indexName",
+        "netReturnIntro",
+        "isPriceIndex",
+        "updateTime",
+        "indicsSeqDesc",
+        "indexDataSourceType",
+        "launchDay",
+        "methodologyNameEn",
+        "methodologyName",
+        "tIndexFullNameEn",
+        "handbookEnUrl",
+        "indicsSeq",
+        "nIndexName",
+        "indexNameEn",
+        "totalReturnIntroEn",
+        "tIndexName",
+        "isTotalReturnIndex",
+    ]
+    valus = ""
+    count = 0
+    for k, v in data.items():
+        count += 1
+        if k in fileds:
+            valus += f" '{get_str(v)}'"
+        else:
+            valus += f" ''"
+        if count != len(fileds):
+            valus += ","
+    return valus
+
+
+def get_str(v):
+    if isinstance(v, int):
+        v = str(v)
+    elif isinstance(v, float):
+        v = str(v)
+    elif isinstance(v, str):
+        v = v
+    else:
+        v = json.dumps(v)
+    return v
 
 
 def run():
