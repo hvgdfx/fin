@@ -1,5 +1,5 @@
 
-name="stock_proxy_redis"
+name="stock_redis"
 
 docker images | grep ${name} | awk '{print $3}' | xargs docker rmi -f
 docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
