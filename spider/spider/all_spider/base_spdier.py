@@ -6,6 +6,7 @@ from fake_useragent import UserAgent
 
 sys.path.append("/work")
 sys.path.append("/home/prod/007/fin/spider")
+sys.path.append("../../")
 
 from spider.utils.ck_utils import client
 from spider.utils.proxy_utils import get_proxy
