@@ -1,4 +1,4 @@
-FROM node:8.9-alpine
+FROM node:21
 
 RUN mkdir -p /home/nodejs/demoproject1
 
