@@ -1,16 +1,10 @@
 FROM node:21
 
-RUN mkdir -p /home/nodejs/demoproject1
+WORKDIR /home/nodejs/project/demo  
 
-ADD ./ /home/nodejs/demoproject1
+ADD . /home/nodejs/project/demo/
 
-WORKDIR /home/nodejs/demoproject1
+RUN npm init -y \
+    && npm install express
 
-RUN npm install
-
-ENV HOST 0.0.0.0
-ENV PORT 8081
-
-EXPOSE 80
-
-CMD ["npm", "start"]
+CMD ["npm", "server.js"]

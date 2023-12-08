@@ -1,10 +1,13 @@
+const express = require('express');
+const app = express();
+const port = 59081;
 
-const Koa = require('koa');
-const app = new Koa();
+app.use(express.static('public'));
 
-app.use(async ctx => {
-   ctx.body = 'Hello docker';
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8081);
-
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
