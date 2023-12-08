@@ -7,4 +7,4 @@ ADD . /home/nodejs/project/demo/
 RUN npm init -y \
     && npm install express
 
-CMD ["npm", "server.js"]
+CMD ["node", "server.js"]
