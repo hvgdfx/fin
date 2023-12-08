@@ -8,7 +8,7 @@ WORKDIR /home/nodejs/demoproject1
 
 RUN npm install
 
-ENV HOST 0.0.0.
+ENV HOST 0.0.0.0
 ENV PORT 8081
 
 EXPOSE 80
