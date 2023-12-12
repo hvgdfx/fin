@@ -182,8 +182,6 @@ def run():
     print(f"-----------------------------------------------")
 
     data = parse_response(resp)
-    print(type(data))
-    print(data[0])
     print(f"-----------------------------------------------")
 
     insert_data_list(data)

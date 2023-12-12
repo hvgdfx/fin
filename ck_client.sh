@@ -1,2 +1,2 @@
 
-clickhouse-client --user default --password 'click!@#123'
+clickhouse-client --user default --password 'click!@#'

@@ -55,3 +55,7 @@ clickhouse-client \
   --user default \
   --password click!@#\
   --multiquery -q  "${sql}"
+
+
+# 按分区删除，注意是单引号
+delete from index_sz where dt = '2023-12-12';

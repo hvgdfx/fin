@@ -7,17 +7,19 @@ import time
 import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
+from datetime import datetime
+
 
 ua = UserAgent()
 
 
 # 1. request
-def requset_index_sz_element():
+def requset_index_sz_element(index_code):
     try_count = 0
     while True:
         # 1. url
         _ = str(int(time.time() * 1000))
-        url = f"https://query.sse.com.cn/commonSoaQuery.do?&sqlId=DB_SZZSLB_CFGLB&indexCode=000001&isPagination=false&_={_}"
+        url = f"https://query.sse.com.cn/commonSoaQuery.do?&sqlId=DB_SZZSLB_CFGLB&indexCode={index_code}&isPagination=false&_={_}"
 
         # 2. headers
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
@@ -80,8 +82,9 @@ def parse_response(resp):
 def insert_data_list(data_list):
     for data in data_list:
         values = insert_data(data)
-        # print(values)
-        # client.client.execute(f"insert into stock.index_sz VALUES ({values})")
+        todate = datetime.now()
+        dt = todate.strftime('%Y-%m-%d')
+        client.client.execute(f"insert into stock.index_sz VALUES ({values}, '{dt}')")
 
 
 def insert_data(data):
@@ -121,9 +124,13 @@ def get_str(v):
         v = json.dumps(v)
     return v
 
+def index_list():
+    result = client.client.execute(f"select indexCode from stock.index_sz where indexCode != '';")
+    result = [t[0] for t in result]
 
-def run():
-    resp = requset_index_sz_element()
+
+def run(index_code):
+    resp = requset_index_sz_element(index_code)
     if resp is None:
         return
     print(f"-----------------------------------------------")
@@ -138,4 +145,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    run("000001")
