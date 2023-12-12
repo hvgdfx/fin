@@ -23,9 +23,9 @@ def requset_index_sz_element(index_code):
 
         # 2. headers
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
-        print(f"proxy_json: {proxy_json}")
+        #print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
-            print("没有http代理可用")
+            #print("没有http代理可用")
             continue
 
         proxies = {
@@ -42,8 +42,8 @@ def requset_index_sz_element(index_code):
             "Pragma": "no-cache",
             "Referer": "http://www.sse.com.cn/",
         }
-        print(f"headers: {headers}")
-        print(f"proxies: {proxies}")
+        #print(f"headers: {headers}")
+        #print(f"proxies: {proxies}")
 
         # 3. response
 
@@ -51,14 +51,15 @@ def requset_index_sz_element(index_code):
         try:
             resp = requests.get(url=url, headers=headers, proxies=proxies, timeout=(1, 10))
         except Exception as e:
-            print(e)
+            #print(e)
             continue
         if try_count > 10:
             break
         if resp.status_code == 200:
             return resp
         else:
-            print(f"resp {try_count} status code {resp.status_code}")
+            #print(f"resp {try_count} status code {resp.status_code}")
+            pass
     return None
 
 
@@ -79,12 +80,15 @@ def parse_response(resp):
 
 
 # 3. insert data
-def insert_data_list(data_list):
+def insert_data_list(index_code, data_list):
     for data in data_list:
         values = insert_data(data)
         todate = datetime.now()
         dt = todate.strftime('%Y-%m-%d')
-        client.client.execute(f"insert into stock.index_sz VALUES ({values}, '{dt}')")
+        # client.client.execute(f"insert into stock.index_sz VALUES ('{index_code}', {values}, '{dt}')")
+        sql = f"insert into stock.index_sz_element VALUES ('{index_code}', {values}, '{dt}')"
+        #print(sql)
+        client.client.execute(sql)
 
 
 def insert_data(data):
@@ -96,21 +100,21 @@ def insert_data(data):
         "marketSource",
     ]
 
-    valus = ""
+    values = ""
     print_values = ""
     count = 0
     for k, v in data.items():
         count += 1
         if k in fileds:
-            valus += f" '{get_str(v)}'"
+            values += f" '{get_str(v)}'"
             print_values += f" '{get_str(v)}'"
         else:
-            valus += f" ''"
+            values += f" ''"
             print_values += f" ' ''"
         if count != len(fileds):
-            valus += ","
-    print(print_values)
-    return valus
+            values += ","
+    # print(print_values)
+    return values
 
 
 def get_str(v):
@@ -119,7 +123,7 @@ def get_str(v):
     elif isinstance(v, float):
         v = str(v)
     elif isinstance(v, str):
-        v = v
+        v = v.replace("\'", "")
     else:
         v = json.dumps(v)
     return v
@@ -127,22 +131,29 @@ def get_str(v):
 def index_list():
     result = client.client.execute(f"select indexCode from stock.index_sz where indexCode != '';")
     result = [t[0] for t in result]
+    return result
 
 
 def run(index_code):
     resp = requset_index_sz_element(index_code)
     if resp is None:
         return
-    print(f"-----------------------------------------------")
+    #print(f"-----------------------------------------------")
 
     data = parse_response(resp)
-    print(type(data))
-    print(data[0])
-    print(f"-----------------------------------------------")
+    #print(type(data))
+    #print(data[0])
+    #print(f"-----------------------------------------------")
 
-    insert_data_list(data)
-    print(f"-----------------------------------------------")
+    insert_data_list(index_code, data)
+    #print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':
-    run("000001")
+    index_list = index_list()
+    for index_code in index_list:
+        try:
+            run(index_code)
+            print(f"index_code: {index_code} success")
+        except Exception as e:
+            print(f"index_code: {index_code} fail {e}")
