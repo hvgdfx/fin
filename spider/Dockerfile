@@ -5,8 +5,8 @@ WORKDIR /work
 
 COPY . .
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \\
-    && pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple/ \\
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple/ \
     && pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
 
 
