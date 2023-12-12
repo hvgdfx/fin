@@ -98,7 +98,7 @@ def insert_data_list(data_list):
         dt = todate.strftime('%Y-%m-%d')
         sql = f"insert into stock.index_sz VALUES ({values}, {dt})"
         print(sql)
-        client.client.execute(f"insert into stock.index_sz VALUES ({values}, {dt})")
+        client.client.execute(f"insert into stock.index_sz VALUES ({values}, '{dt}')")
 
 
 def insert_data(data):

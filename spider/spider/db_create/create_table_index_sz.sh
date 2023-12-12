@@ -44,7 +44,7 @@ indexNameEn String               ,
 totalReturnIntroEn String        ,
 tIndexName String                ,
 isTotalReturnIndex String       ,
-            dt Date
+            dt String
           ) ENGINE = MergeTree
           PARTITION BY dt order by dt;
           "
