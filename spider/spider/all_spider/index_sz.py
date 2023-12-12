@@ -7,6 +7,7 @@ import time
 import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
+from datetime import datetime
 
 ua = UserAgent()
 
@@ -93,7 +94,11 @@ def insert_data_list(data_list):
     for data in data_list:
         values = insert_data(data)
         # print(values)
-        # client.client.execute(f"insert into stock.index_sz VALUES ({values})")
+        todate = datetime.now()
+        dt = todate.strftime('%Y-%m-%d')
+        sql = f"insert into stock.index_sz VALUES ({values}, {dt})"
+        print(sql)
+        client.client.execute(f"insert into stock.index_sz VALUES ({values}, {dt})")
 
 
 def insert_data(data):
@@ -164,7 +169,7 @@ def get_str(v):
     elif isinstance(v, float):
         v = str(v)
     elif isinstance(v, str):
-        v = v
+        v = v.replace("\'", "")
     else:
         v = json.dumps(v)
     return v
