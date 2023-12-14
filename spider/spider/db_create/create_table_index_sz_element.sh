@@ -20,6 +20,6 @@ clickhouse-client \
   --host localhost \
   --port 9000 \
   --user default \
-  --password click!@#\
+  --password click!@#123 \
   --multiquery -q  "${sql}"
 

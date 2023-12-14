@@ -10,7 +10,7 @@ from spider.utils.test_utils import is_test_enviroment
 class CKClient:
     def __init__(self):
         self.username = "default"
-        self.passwd = "click!@#"
+        self.passwd = "click!@#123"
 
         host_ip = "172.17.0.1"
         self.client = Client(host=host_ip, port=9000, user=self.username, password=self.passwd)
