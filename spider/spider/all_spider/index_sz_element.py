@@ -80,11 +80,9 @@ def parse_response(resp):
 
 
 # 3. insert data
-def insert_data_list(index_code, data_list):
+def insert_data_list(index_code, data_list, dt):
     for data in data_list:
         values = insert_data(data)
-        todate = datetime.now()
-        dt = todate.strftime('%Y-%m-%d')
         # client.client.execute(f"insert into stock.index_sz VALUES ('{index_code}', {values}, '{dt}')")
         sql = f"insert into stock.index_sz_element VALUES ('{index_code}', {values}, '{dt}')"
         #print(sql)
@@ -128,13 +126,13 @@ def get_str(v):
         v = json.dumps(v)
     return v
 
-def index_list():
-    result = client.client.execute(f"select indexCode from stock.index_sz where indexCode != '';")
+def index_list(dt):
+    result = client.client.execute(f"select indexCode from stock.index_sz where indexCode != '' and dt='{dt}';")
     result = [t[0] for t in result]
     return result
 
 
-def run(index_code):
+def run(index_code, dt):
     resp = requset_index_sz_element(index_code)
     if resp is None:
         return
@@ -145,15 +143,18 @@ def run(index_code):
     #print(data[0])
     #print(f"-----------------------------------------------")
 
-    insert_data_list(index_code, data)
+    insert_data_list(index_code, data, dt)
     #print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':
-    index_list = index_list()
+    todate = datetime.now()
+    dt = todate.strftime('%Y-%m-%d')
+
+    index_list = index_list(dt)
     for index_code in index_list:
         try:
-            run(index_code)
+            run(index_code, dt)
             print(f"index_code: {index_code} success")
         except Exception as e:
             print(f"index_code: {index_code} fail {e}")
