@@ -62,11 +62,11 @@ def requset_index_zz():
 
         try_count += 1
         try:
-            resp = requests.post(url=url, headers=headers, proxies=proxies, timeout=(1, 10), data=post_param, json=False)
+            resp = requests.post(url=url, headers=headers, proxies=proxies, timeout=(1, 10), json=post_param)
         except Exception as e:
             print(e)
             continue
-        if try_count > 3:
+        if try_count > 10:
             break
         if resp.status_code == 200:
             return resp
@@ -84,7 +84,11 @@ def parse_response(resp):
         return None
     else:
         try:
-            data = resp.json()["result"]
+            code = resp.json()["code"]
+            if "200" == code:
+                data = resp.json()["data"]
+            else:
+                data
         except Exception as e:
             print(e)
             print(f"parse response {data}")
@@ -106,71 +110,59 @@ def insert_data_list(data_list):
         # print(values)
         todate = datetime.now()
         dt = todate.strftime('%Y-%m-%d')
-        sql = f"insert into stock.index_sz VALUES ({values}, {dt})"
+        sql = f"insert into stock.index_zz VALUES ({values}, {dt})"
         print(sql)
-        client.client.execute(f"insert into stock.index_sz VALUES ({values}, '{dt}')")
+        #client.client.execute(f"insert into stock.index_zz VALUES ({values}, '{dt}')")
 
 
 def insert_data(data):
     fileds = [
-        "handbookUrl",
-        "nIndexFullNameEn",
-        "nIndexNameEn",
-        "tIndexCode",
-        "nIndexCode",
-        "indexReleaseChannel",
+        "indexCompliance",
+        "indexComplianceEn",
+        "ifTracked",
+        "ifTrackedEn",
+        "indexSeries",
+        "indexSeriesEn",
+        "key",
         "indexCode",
-        "introEn",
-        "indexFullName",
-        "nIndexFullName",
-        "totalReturnIntro",
-        "tIndexNameEn",
-        "indexFullNameEn",
-        "isNetLncomeIndex",
-        "intro",
-        "tIndexFullName",
-        "indexBaseDay",
-        "ifIndexCode",
-        "numOfStockes",
-        "netReturnIntroEn",
-        "indexBasePoint",
-        "indicsSeqDescEn",
         "indexName",
-        "netReturnIntro",
-        "isPriceIndex",
-        "updateTime",
-        "indicsSeqDesc",
-        "indexDataSourceType",
-        "launchDay",
-        "methodologyNameEn",
-        "methodologyName",
-        "tIndexFullNameEn",
-        "handbookEnUrl",
-        "indicsSeq",
-        "nIndexName",
         "indexNameEn",
-        "totalReturnIntroEn",
-        "tIndexName",
-        "isTotalReturnIndex",
+        "consNumber",
+        "latestClose",
+        "monthlyReturn",
+        "indexType",
+        "assetsClassify",
+        "assetsClassifyEn",
+        "hotSpot",
+        "hotSpotEn",
+        "region",
+        "regionEn",
+        "currency",
+        "currencyEn",
+        "ifCustomized",
+        "ifCustomizedEn",
+        "indexClassify",
+        "indexClassifyEn",
+        "ifWeightCapped",
+        "ifWeightCappedEn",
+        "publishDate",
+        "ifProtect",
+        "protectStartDate",
+        "protectEndDate",
+        "ifTopDing",
     ]
 
-    print_fields = ["indexCode", "indexName"]
-
-    valus = ""
-    print_values = ""
+    values = ""
     count = 0
     for k, v in data.items():
         count += 1
         if k in fileds:
-            valus += f" '{get_str(v)}'"
-            print_values += f" '{get_str(v)}'"
+            values += f" '{get_str(v)}'"
         else:
-            valus += f" ''"
-            print_values += f" ' ''"
+            values += f" ''"
         if count != len(fileds):
-            valus += ","
-    print(print_values)
-    return valus
+            values += ","
+    return values
 
 
 def get_str(v):
