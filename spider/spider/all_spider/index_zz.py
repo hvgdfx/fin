@@ -94,15 +94,6 @@ def parse_response(resp):
             print(f"parse response {data}")
     return data
 
-
-def check_data(resp) -> bool:
-    return False
-
-
-def parse_data(resp):
-    pass
-
-
 # 3. insert data
 def insert_data_list(data_list):
     for data in data_list:
@@ -112,7 +103,7 @@ def insert_data_list(data_list):
         dt = todate.strftime('%Y-%m-%d')
         sql = f"insert into stock.index_zz VALUES ({values}, {dt})"
         print(sql)
-        #client.client.execute(f"insert into stock.index_zz VALUES ({values}, '{dt}')")
+        client.client.execute(f"insert into stock.index_zz VALUES ({values}, '{dt}')")
 
 
 def insert_data(data):
