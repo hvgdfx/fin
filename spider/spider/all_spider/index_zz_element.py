@@ -9,11 +9,12 @@ from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
 from datetime import datetime
 import xlrd
+import os
 
 
 ua = UserAgent()
 
-xls_file_path = "/work/spider/all_spider/data/"
+xls_dir_path = "/work/spider/all_spider/data/"
 
 # 1. request
 def requset_index_zz_element(index_code):
@@ -33,15 +34,24 @@ def requset_index_zz_element(index_code):
             "http": f"http://{proxy_json['proxy']}"
         }
 
+
         headers = {
             "user-agent": ua.random,
-            "Accept-Encoding": "gzip, deflate",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "Accept-Encoding": "gzip, deflate,br",
             "Accept-Language": "en,zh-CN;q=0.9,zh;q=0.8",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
-            "Host": "query.sse.com.cn",
+            "Host": "csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com",
             "Pragma": "no-cache",
-            "Referer": "http://www.sse.com.cn/",
+            "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+            "Sec-Ch-Ua-Mobile": "?0",
+            "Sec-Ch-Ua-Platform": '"Windows"',
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            "Upgrade-Insecure-Requests": "1",
         }
         #print(f"headers: {headers}")
         #print(f"proxies: {proxies}")
@@ -69,7 +79,8 @@ def parse_response(resp, index_code):
         return False
     else:
         try:
-            with open(f"{xls_file_path}index_zz_element_{index_code}.xls", "wb") as f:
+            os.makedirs(xls_dir_path, exist_ok=True)
+            with open(f"{xls_dir_path}index_zz_element_{index_code}.xls", "wb") as f:
                 f.write(resp.content)
             return True
         except Exception as e:
@@ -87,7 +98,7 @@ def insert_data_list(index_code, dt):
 
 
 def insert_data(index_code):
-    workbook = xlrd.open_workbook(f"{xls_file_path}index_zz_element_{index_code}.xls")
+    workbook = xlrd.open_workbook(f"{xls_dir_path}index_zz_element_{index_code}.xls")
     sheet = workbook.sheet_by_name(f"{index_code}cons.xls")
 
     values_list = []
@@ -154,4 +165,5 @@ def run_all():
 
 
 if __name__ == '__main__':
-    run("000300", "2023-12-15")
+    # run("000300", "2023-12-15")
+    run_all()
