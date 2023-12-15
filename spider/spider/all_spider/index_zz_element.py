@@ -93,8 +93,8 @@ def insert_data_list(index_code, dt):
     values_list = insert_data(index_code)
     for values in values_list:
         sql = f"insert into stock.index_zz_element VALUES ({values}, '{dt}')"
-        print(sql)
-        # client.client.execute(sql)
+        # print(sql)
+        client.client.execute(sql)
 
 
 def insert_data(index_code):
