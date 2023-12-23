@@ -54,7 +54,7 @@ def requset_index_zz():
         # 3. response
         post_param = {}
         indexFilter = {"indexSeries": ["1"]}
-        pager = {"pageNum": 1, "pageSize": 300}
+        pager = {"pageNum": 1, "pageSize": 3000}
         sorter = {"sortField": "null", "sortOrder": None}
         post_param["indexFilter"] = indexFilter
         post_param["pager"] = pager
