@@ -10,6 +10,7 @@ from spider.utils.ck_utils import client
 from datetime import datetime
 import os
 import openpyxl
+import random
 
 ua = UserAgent()
 
@@ -21,7 +22,7 @@ def requset_index_shenzheng():
     try_count = 0
     while True:
         # 1. url
-        url = "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1812_zs&TABKEY=tab1&random=0.5177977178993345"
+        url = f"https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1812_zs&TABKEY=tab1&random={random.random()}"
 
         # 2. headers
 
@@ -83,37 +84,25 @@ def parse_response(resp, dt):
 # 3. insert data
 def insert_data_list(dt):
     workbook = openpyxl.load_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xlsx")
-    # sheet = workbook.sheet_by_name(f"指数列表.xls")
     sheet = workbook[f"指数列表"]
 
     values_list = []
 
-    # for row_index in range(sheet.nrows):
-    #     row_data = sheet.row_values(row_index)
-    #     if row_index == 0:
-    #         pass
-    #     else:
-    #         count = 0
-    #         values = ""
-    #         for row_value in row_data:
-    #             count += 1
-    #             values += f" '{get_str(row_value)}'"
-    #             if count != len(row_data):
-    #                 values += ","
-    #         values_list.append(values)
-    # print(values_list)
-    for row in sheet.iter_rows(min_row=1, max_row=sheet.max_row, values_only=True):
-        print(row)
-    return values_list
+    for row_data in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
+        count = 0
+        values = ""
+        for row_value in row_data:
+            count += 1
+            values += f" '{get_str(row_value)}'"
+            if count != len(row_data):
+                values += ","
+        values_list.append(values)
+    print(values_list)
 
-    # for data in data_list:
-    #     values = insert_data(data)
-    #     # print(values)
-    #     todate = datetime.now()
-    #     dt = todate.strftime('%Y-%m-%d')
-    #     sql = f"insert into stock.index_sz VALUES ({values}, {dt})"
-    #     print(sql)
-    #     client.client.execute(f"insert into stock.index_sz VALUES ({values}, '{dt}')")
+    for values in values_list:
+        sql = f"insert into stock.index_shenzheng VALUES ({values}, '{dt}')"
+        print(sql)
+        client.client.execute(sql)
 
 
 def get_str(v):
