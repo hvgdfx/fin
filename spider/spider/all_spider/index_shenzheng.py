@@ -72,7 +72,7 @@ def parse_response(resp, dt):
     else:
         try:
             os.makedirs(xls_dir_path, exist_ok=True)
-            with open(f"{xls_dir_path}index_shenzheng_{dt}.xls", "wb") as f:
+            with open(f"{xls_dir_path}index_shenzheng_{dt}.xlsx", "wb") as f:
                 f.write(resp.content)
             return True
         except Exception as e:
@@ -82,7 +82,7 @@ def parse_response(resp, dt):
 
 # 3. insert data
 def insert_data_list(dt):
-    workbook = openpyxl.load_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xls")
+    workbook = openpyxl.load_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xlsx")
     # sheet = workbook.sheet_by_name(f"指数列表.xls")
     sheet = workbook[f"指数列表"]
 
