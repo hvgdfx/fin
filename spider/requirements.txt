@@ -4,3 +4,4 @@ clickhouse_driver==0.2.3
 selenium==3.141.0
 tqdm==4.66.1
 xlrd==2.0.1
+openpyxl==3.0.10
