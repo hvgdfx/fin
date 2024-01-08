@@ -3,16 +3,12 @@
 
 
 sql="use stock;
-      create table IF NOT EXISTS index_eastmoney_board
+      create table IF NOT EXISTS index_eastmoney_board_element
       (
-        board_type String,
-        board_type_cn String,
-        board_type_href String,
-        board_key String,
         board_id String,
         board_name String,
-        board_href String,
-        board_order String,
+        securityCode String,
+        securityName String,
 
         dt String
       ) ENGINE = MergeTree
