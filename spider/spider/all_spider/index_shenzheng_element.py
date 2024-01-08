@@ -21,7 +21,7 @@ def requset_index_shenzheng():
     try_count = 0
     while True:
         # 1. url
-        url = "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1812_zs&TABKEY=tab1&random=0.5177977178993345"
+        url = "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1826_snapshot&TABKEY=tab1&txtBeginDate=2024-01-05&txtEndDate=2024-01-05&archiveDate=2022-01-04&random=0.7837020059921369"
 
         # 2. headers
 
@@ -82,28 +82,25 @@ def parse_response(resp, dt):
 
 # 3. insert data
 def insert_data_list(dt):
-    workbook = openpyxl.load_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xls")
-    # sheet = workbook.sheet_by_name(f"指数列表.xls")
-    sheet = workbook[f"指数列表"]
+    workbook = openpyxl.open_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xls")
+    sheet = workbook.sheet_by_name(f"指数列表.xls")
 
     values_list = []
 
-    # for row_index in range(sheet.nrows):
-    #     row_data = sheet.row_values(row_index)
-    #     if row_index == 0:
-    #         pass
-    #     else:
-    #         count = 0
-    #         values = ""
-    #         for row_value in row_data:
-    #             count += 1
-    #             values += f" '{get_str(row_value)}'"
-    #             if count != len(row_data):
-    #                 values += ","
-    #         values_list.append(values)
-    # print(values_list)
-    for row in sheet.iter_rows(min_row=1, max_row=sheet.max_row, values_only=True):
-        print(row)
+    for row_index in range(sheet.nrows):
+        row_data = sheet.row_values(row_index)
+        if row_index == 0:
+            pass
+        else:
+            count = 0
+            values = ""
+            for row_value in row_data:
+                count += 1
+                values += f" '{get_str(row_value)}'"
+                if count != len(row_data):
+                    values += ","
+            values_list.append(values)
+    print(values_list)
     return values_list
 
     # for data in data_list:
