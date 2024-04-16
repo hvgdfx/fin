@@ -25,7 +25,7 @@ def requset_index_sz():
         isPagination = "false"
         sqlId = "DB_SZZSLB_ZSLB"
         # url = f"http://query.sse.com.cn/commonSoaQuery.do?jsonCallBack={jsonCallBack}&isPagination={isPagination}&sqlId={sqlId}&_={_}"
-        url = f"http://query.sse.com.cn/commonSoaQuery.do?isPagination={isPagination}&sqlId={sqlId}&_={_}"
+        url = f"https://query.sse.com.cn/commonSoaQuery.do?isPagination={isPagination}&sqlId={sqlId}&_={_}"
 
         # 2. headers
 
@@ -41,6 +41,7 @@ def requset_index_sz():
 
         headers = {
             "user-agent": ua.random,
+            "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en,zh-CN;q=0.9,zh;q=0.8",
             "Cache-Control": "no-cache",
