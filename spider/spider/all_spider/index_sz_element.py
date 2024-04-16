@@ -149,6 +149,17 @@ def run(index_code, dt):
     insert_data_list(index_code, data, dt)
     # print(f"-----------------------------------------------")
 
+
+def run_all(dt):
+    l = index_list(dt)
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
+    for index_code in l:
+        try:
+            run(index_code, dt)
+            print(f"index_code: {index_code} success")
+        except Exception as e:
+            print(f"index_code: {index_code} fail {e}")
+
     print(f"-----------------------------------------------")
     check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
@@ -157,12 +168,4 @@ def run(index_code, dt):
 if __name__ == '__main__':
     todate = datetime.now()
     dt = todate.strftime('%Y-%m-%d')
-
-    index_list = index_list(dt)
-    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
-    for index_code in index_list:
-        try:
-            run(index_code, dt)
-            print(f"index_code: {index_code} success")
-        except Exception as e:
-            print(f"index_code: {index_code} fail {e}")
+    run_all(dt)
