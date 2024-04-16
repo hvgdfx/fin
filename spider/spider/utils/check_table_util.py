@@ -1,5 +1,5 @@
-from alter import send_message
-from ck_utils import client
+from spider.utils.alter import send_message
+from spider.utils.ck_utils import client
 
 
 def check_row_num(table, dt):
