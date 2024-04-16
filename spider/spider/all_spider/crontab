@@ -1,2 +1,2 @@
 
-0       3       0       0       1     /work/spider/all_spider/crontab_all_spider.sh
+0       3       *       *       1     /work/spider/all_spider/crontab_all_spider.sh
