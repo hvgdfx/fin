@@ -8,6 +8,7 @@ import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
 from datetime import datetime
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
@@ -145,6 +146,9 @@ def runall(dt):
             print(f"board_id: {board_id} success")
         except Exception as e:
             print(f"board_id: {board_id} fail {e}")
+
+    check_row_num("index_eastmoney_board_element", dt)
+    print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':

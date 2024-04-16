@@ -10,11 +10,12 @@ from spider.utils.ck_utils import client
 from datetime import datetime
 import xlrd
 import os
-
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
 xls_dir_path = "/work/spider/all_spider/data/"
+
 
 # 1. request
 def requset_index_zz_element(index_code):
@@ -25,15 +26,14 @@ def requset_index_zz_element(index_code):
 
         # 2. headers
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
-        #print(f"proxy_json: {proxy_json}")
+        # print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
-            #print("没有http代理可用")
+            # print("没有http代理可用")
             continue
 
         proxies = {
             "http": f"http://{proxy_json['proxy']}"
         }
-
 
         headers = {
             "user-agent": ua.random,
@@ -53,22 +53,22 @@ def requset_index_zz_element(index_code):
             "Sec-Fetch-User": "?1",
             "Upgrade-Insecure-Requests": "1",
         }
-        #print(f"headers: {headers}")
-        #print(f"proxies: {proxies}")
+        # print(f"headers: {headers}")
+        # print(f"proxies: {proxies}")
 
         # 3. response
         try_count += 1
         try:
             resp = requests.get(url=url, headers=headers, proxies=proxies, timeout=(1, 10))
         except Exception as e:
-            #print(e)
+            # print(e)
             continue
         if try_count > 10:
             break
         if resp.status_code == 200:
             return resp
         else:
-            #print(f"resp {try_count} status code {resp.status_code}")
+            # print(f"resp {try_count} status code {resp.status_code}")
             pass
     return None
 
@@ -130,6 +130,7 @@ def get_str(v):
         v = json.dumps(v)
     return v
 
+
 def get_index_list(dt):
     result = client.client.execute(f"select indexCode from stock.index_zz where indexCode != '' and dt='{dt}';")
     result = [t[0] for t in result]
@@ -140,16 +141,17 @@ def run(index_code, dt):
     resp = requset_index_zz_element(index_code)
     if resp is None:
         return
-    #print(f"-----------------------------------------------")
+    # print(f"-----------------------------------------------")
 
     flag = parse_response(resp, index_code)
-    #print(f"-----------------------------------------------")
+    # print(f"-----------------------------------------------")
 
     if flag:
         insert_data_list(index_code, dt)
     else:
         print(f"{index_code} 没有该指数的明细xls")
-    #print(f"-----------------------------------------------")
+    # print(f"-----------------------------------------------")
+
 
 def run_all():
     todate = datetime.now()
@@ -162,6 +164,9 @@ def run_all():
             print(f"index_code: {index_code} success")
         except Exception as e:
             print(f"index_code: {index_code} fail {e}")
+
+    check_row_num("index_zz_element", dt)
+    print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':

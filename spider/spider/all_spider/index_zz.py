@@ -8,8 +8,10 @@ import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
 from datetime import datetime
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
+
 
 # 1. request
 def requset_index_zz():
@@ -20,7 +22,7 @@ def requset_index_zz():
 
         # 2. headers
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
-        #print(f"proxy_json: {proxy_json}")
+        # print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
             print("没有http代理可用")
             continue
@@ -94,13 +96,12 @@ def parse_response(resp):
             print(f"parse response {data}")
     return data
 
+
 # 3. insert data
-def insert_data_list(data_list):
+def insert_data_list(data_list, dt):
     for data in data_list:
         values = insert_data(data)
         # print(values)
-        todate = datetime.now()
-        dt = todate.strftime('%Y-%m-%d')
         sql = f"insert into stock.index_zz VALUES ({values}, {dt})"
         print(sql)
         client.client.execute(f"insert into stock.index_zz VALUES ({values}, '{dt}')")
@@ -168,7 +169,7 @@ def get_str(v):
     return v
 
 
-def run():
+def run(dt):
     resp = requset_index_zz()
     if resp is None:
         return
@@ -177,9 +178,14 @@ def run():
     data = parse_response(resp)
     print(f"-----------------------------------------------")
 
-    insert_data_list(data)
+    insert_data_list(data, dt)
+    print(f"-----------------------------------------------")
+
+    check_row_num("index_zz", dt)
     print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':
-    run()
+    todate = datetime.now()
+    dt = todate.strftime('%Y-%m-%d')
+    run(dt)

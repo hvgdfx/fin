@@ -11,6 +11,8 @@ from datetime import datetime
 import os
 import openpyxl
 import random
+from spider.utils.check_table_util import check_row_num
+
 
 ua = UserAgent()
 
@@ -128,6 +130,9 @@ def run(dt):
 
     if flag:
         insert_data_list(dt)
+    print(f"-----------------------------------------------")
+
+    check_row_num("index_shenzheng", dt)
     print(f"-----------------------------------------------")
 
 

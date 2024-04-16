@@ -8,7 +8,7 @@ import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
 from datetime import datetime
-
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
@@ -23,9 +23,9 @@ def requset_index_sz_element(index_code):
 
         # 2. headers
         proxy_json = requests.get("http://stock_proxy:5010/get").json()
-        #print(f"proxy_json: {proxy_json}")
+        # print(f"proxy_json: {proxy_json}")
         if proxy_json["https"]:
-            #print("没有http代理可用")
+            # print("没有http代理可用")
             continue
 
         proxies = {
@@ -42,8 +42,8 @@ def requset_index_sz_element(index_code):
             "Pragma": "no-cache",
             "Referer": "http://www.sse.com.cn/",
         }
-        #print(f"headers: {headers}")
-        #print(f"proxies: {proxies}")
+        # print(f"headers: {headers}")
+        # print(f"proxies: {proxies}")
 
         # 3. response
 
@@ -51,14 +51,14 @@ def requset_index_sz_element(index_code):
         try:
             resp = requests.get(url=url, headers=headers, proxies=proxies, timeout=(1, 10))
         except Exception as e:
-            #print(e)
+            # print(e)
             continue
         if try_count > 10:
             break
         if resp.status_code == 200:
             return resp
         else:
-            #print(f"resp {try_count} status code {resp.status_code}")
+            # print(f"resp {try_count} status code {resp.status_code}")
             pass
     return None
 
@@ -85,7 +85,7 @@ def insert_data_list(index_code, data_list, dt):
         values = insert_data(data)
         # client.client.execute(f"insert into stock.index_sz VALUES ('{index_code}', {values}, '{dt}')")
         sql = f"insert into stock.index_sz_element VALUES ('{index_code}', {values}, '{dt}')"
-        #print(sql)
+        # print(sql)
         client.client.execute(sql)
 
 
@@ -126,6 +126,7 @@ def get_str(v):
         v = json.dumps(v)
     return v
 
+
 def index_list(dt):
     result = client.client.execute(f"select indexCode from stock.index_sz where indexCode != '' and dt='{dt}';")
     result = [t[0] for t in result]
@@ -136,15 +137,19 @@ def run(index_code, dt):
     resp = requset_index_sz_element(index_code)
     if resp is None:
         return
-    #print(f"-----------------------------------------------")
+    # print(f"-----------------------------------------------")
 
     data = parse_response(resp)
-    #print(type(data))
-    #print(data[0])
-    #print(f"-----------------------------------------------")
+    # print(type(data))
+    # print(data[0])
+    # print(f"-----------------------------------------------")
 
     insert_data_list(index_code, data, dt)
-    #print(f"-----------------------------------------------")
+    # print(f"-----------------------------------------------")
+
+    print(f"-----------------------------------------------")
+    check_row_num("index_sz_element", dt)
+    print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':

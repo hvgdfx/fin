@@ -11,6 +11,7 @@ from datetime import datetime
 import os
 import openpyxl
 import random
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
@@ -144,6 +145,9 @@ def run_all(dt):
             print(f"index_code: {index_code} success")
         except Exception as e:
             print(f"index_code: {index_code} fail {e}")
+
+    check_row_num("index_shenzheng_element", dt)
+    print(f"-----------------------------------------------")
 
 
 if __name__ == '__main__':
