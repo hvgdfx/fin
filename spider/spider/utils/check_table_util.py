@@ -6,8 +6,9 @@ def check_row_num(table, dt):
     sql = f"select count(*) from stock.{table} where dt = '{dt}' "
     print(sql)
     result = client.client.execute(sql)
-    print(f"result: {result}")
-    # send_message()
+    print(f"result: {result}") # result: [(0,)]
+    count = result[0][0]
+    send_message(f"[SPIDER] {table} {dt} {count}")
 
 
 if __name__ == '__main__':
