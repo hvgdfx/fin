@@ -86,7 +86,7 @@ def insert_data_list(index_code, data_list, dt):
     for data in data_list:
         values = insert_data(data)
         # client.client.execute(f"insert into stock.index_sz VALUES ('{index_code}', {values}, '{dt}')")
-        sql = f"insert into stock.index_sz_element VALUES ('{index_code}', {values}, '{dt}')"
+        sql = f"insert into {TABLE_NAME} VALUES ('{index_code}', {values}, '{dt}')"
         # print(sql)
         client.client.execute(sql)
 
@@ -150,7 +150,7 @@ def run(index_code, dt):
     # print(f"-----------------------------------------------")
 
     print(f"-----------------------------------------------")
-    check_row_num("index_sz_element", dt)
+    check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
 
 
