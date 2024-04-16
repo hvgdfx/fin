@@ -13,10 +13,11 @@ import openpyxl
 import random
 from spider.utils.check_table_util import check_row_num
 
-
 ua = UserAgent()
 
 xls_dir_path = "/work/spider/all_spider/data/"
+
+TABLE_NAME = "stock.index_shenzheng"
 
 
 # 1. request
@@ -85,6 +86,8 @@ def parse_response(resp, dt):
 
 # 3. insert data
 def insert_data_list(dt):
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
+
     workbook = openpyxl.load_workbook(f"{xls_dir_path}index_shenzheng_{dt}.xlsx")
     sheet = workbook[f"指数列表"]
 
@@ -102,7 +105,7 @@ def insert_data_list(dt):
     print(values_list)
 
     for values in values_list:
-        sql = f"insert into stock.index_shenzheng VALUES ({values}, '{dt}')"
+        sql = f"insert into {TABLE_NAME} VALUES ({values}, '{dt}')"
         print(sql)
         client.client.execute(sql)
 
@@ -132,7 +135,7 @@ def run(dt):
         insert_data_list(dt)
     print(f"-----------------------------------------------")
 
-    check_row_num("index_shenzheng", dt)
+    check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
 
 

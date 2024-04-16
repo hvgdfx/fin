@@ -12,6 +12,8 @@ from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
+TABLE_NAME = "stock.index_sz_element"
+
 
 # 1. request
 def requset_index_sz_element(index_code):
@@ -157,6 +159,7 @@ if __name__ == '__main__':
     dt = todate.strftime('%Y-%m-%d')
 
     index_list = index_list(dt)
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
     for index_code in index_list:
         try:
             run(index_code, dt)

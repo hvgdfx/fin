@@ -16,6 +16,8 @@ ua = UserAgent()
 
 xls_dir_path = "/work/spider/all_spider/data/"
 
+TABLE_NAME = "stock.index_zz_element"
+
 
 # 1. request
 def requset_index_zz_element(index_code):
@@ -92,7 +94,7 @@ def parse_response(resp, index_code):
 def insert_data_list(index_code, dt):
     values_list = insert_data(index_code)
     for values in values_list:
-        sql = f"insert into stock.index_zz_element VALUES ({values}, '{dt}')"
+        sql = f"insert into {TABLE_NAME} VALUES ({values}, '{dt}')"
         # print(sql)
         client.client.execute(sql)
 
@@ -157,6 +159,8 @@ def run_all():
     todate = datetime.now()
     dt = todate.strftime('%Y-%m-%d')
 
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
+
     index_list = get_index_list(dt)
     for index_code in index_list:
         try:
@@ -165,7 +169,7 @@ def run_all():
         except Exception as e:
             print(f"index_code: {index_code} fail {e}")
 
-    check_row_num("index_zz_element", dt)
+    check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
 
 

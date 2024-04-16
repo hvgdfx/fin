@@ -14,6 +14,8 @@ ua = UserAgent()
 
 board_dict = {}
 
+TABLE_NAME = "stock.index_eastmoney_board_element"
+
 
 # 1. request
 def requset_index_eastmoney_board_element(borad_id):
@@ -112,7 +114,7 @@ def insert_data_list(board_id, data_list, dt):
         data = [f"'{str(d)}'" for d in data]
         values = ",".join(data)
         board_name = board_dict[board_id]
-        sql = f"insert into stock.index_eastmoney_board_element VALUES ('{board_id}', '{board_name}', {values}, '{dt}')"
+        sql = f"insert into {TABLE_NAME} VALUES ('{board_id}', '{board_name}', {values}, '{dt}')"
         # print(sql)
         client.client.execute(sql)
 
@@ -139,6 +141,7 @@ def run(board_id, dt):
 
 def runall(dt):
     global board_dict
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
     board_dict = get_index_list(dt)
     for board_id, board_name in board_dict.items():
         try:
@@ -147,7 +150,7 @@ def runall(dt):
         except Exception as e:
             print(f"board_id: {board_id} fail {e}")
 
-    check_row_num("index_eastmoney_board_element", dt)
+    check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
 
 

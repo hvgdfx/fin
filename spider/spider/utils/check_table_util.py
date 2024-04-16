@@ -3,7 +3,7 @@ from spider.utils.ck_utils import client
 
 
 def check_row_num(table, dt):
-    sql = f"select count(*) from stock.{table} where dt = '{dt}' "
+    sql = f"select count(*) from {table} where dt = '{dt}' "
     print(sql)
     result = client.client.execute(sql)
     print(f"result: {result}") # result: [(0,)]

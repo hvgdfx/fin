@@ -12,6 +12,8 @@ from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
+TABLE_NAME = "stock.index_eastmoney_board"
+
 
 # 1. request
 def requset_index_eastmoney_board():
@@ -115,13 +117,16 @@ def parse_response(resp):
 
 # 3. insert data
 def insert_data_list(data_list, dt):
+    # delete partiton first
+    client.client.execute(f"alter table {TABLE_NAME} drop partition '{dt}'")
+
     for data in data_list:
         values = []
         for _ in data:
             values.append(f"'{str(_)}'")
         values = ",".join(values)
         # print(values)
-        sql = f"insert into stock.index_eastmoney_board VALUES ({values}, '{dt}')"
+        sql = f"insert into {TABLE_NAME} VALUES ({values}, '{dt}')"
         print(sql)
         client.client.execute(sql)
 
@@ -150,7 +155,7 @@ def run(dt):
     insert_data_list(data, dt)
     print(f"-----------------------------------------------")
 
-    check_row_num("index_eastmoney_board", dt)
+    check_row_num(TABLE_NAME, dt)
     print(f"-----------------------------------------------")
 
 
