@@ -8,6 +8,7 @@ import json
 from fake_useragent import UserAgent
 from spider.utils.ck_utils import client
 from datetime import datetime
+from spider.utils.check_table_util import check_row_num
 
 ua = UserAgent()
 
@@ -147,6 +148,9 @@ def run(dt):
     print(f"-----------------------------------------------")
 
     insert_data_list(data, dt)
+    print(f"-----------------------------------------------")
+
+    check_row_num("index_eastmoney_board", dt)
     print(f"-----------------------------------------------")
 
 
