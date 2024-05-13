@@ -1,5 +1,5 @@
 import requests
-from constant import TOKEN
+from catizen.constant.constant import TOKEN
 
 
 def handle_inline_query(update):

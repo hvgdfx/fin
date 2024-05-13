@@ -1,0 +1,5 @@
+
+# jump_bot
+TOKEN = "6955121712:AAHug7zbealQl4O1v4Milcrr6JQJKKTQ4rs"
+# hvgdfx_bot
+TOKEN = "7039409211:AAF1JGCSdJHPZ7j_qR5Lf0fYiVRplONaCcA"

@@ -1,11 +1,8 @@
 import requests
 import time
 from datetime import datetime
-
-
-# 替换为您的 Telegram Bot Token
-TOKEN = "6955121712:AAHug7zbealQl4O1v4Milcrr6JQJKKTQ4rs"
-
+from catizen.constant.constant import TOKEN
+from catizen.constant.proxy import proxies
 
 def get_updates(offset=None):
     url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
