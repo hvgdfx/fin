@@ -3,7 +3,7 @@ import sys, os
 import argparse
 
 sys.path.append("/work")
-sys.path.append("/home/prod/007/fin/spider")
+sys.path.append("/data/wuchang/fin/spider")
 
 from spider.utils.ck_utils import client
 
