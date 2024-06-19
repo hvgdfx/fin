@@ -13,4 +13,4 @@ docker run -d --name ${name} \
     -v /data/wuchang/dalinghua.cn.key:/etc/nginx/certs/dalinghua.cn.key \
     -v /data/wuchang/dalinghua.cn.pem:/etc/nginx/certs/dalinghua.cn.pem \
     --user root \
-    --network host ${name}:1.0
+    ${name}:1.0
