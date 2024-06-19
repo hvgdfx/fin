@@ -10,7 +10,7 @@ docker ps -a | grep ${name} | awk '{print $1}' | xargs docker rm -f
 docker build -t ${name}:1.0 --no-cache -f ./Dockerfile .
 docker run -d --name ${name} \
     -p 443:443 \
-    -v /data/wuchang/dalinghua.cn.key:/etc/nginx/dalinghua.cn.key \
-    -v /data/wuchang/dalinghua.cn.pem:/etc/nginx/dalinghua.cn.pem \
+    -v /data/wuchang/dalinghua.cn.key:/etc/nginx/certs/dalinghua.cn.key \
+    -v /data/wuchang/dalinghua.cn.pem:/etc/nginx/certs/dalinghua.cn.pem \
     --user root \
     --network host ${name}:1.0

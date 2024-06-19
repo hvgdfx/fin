@@ -2,7 +2,7 @@
 # FROM nginx:stable
 FROM ccr.ccs.tencentyun.com/library/nginx:latest
 
-add nginx.conf ./
+add nginx.conf /etc/nginx/conf.d/https.conf
 
 CMD ["/usr/sbin/nginx", "-c", "/nginx.conf", "-g", "daemon off;"]
 
