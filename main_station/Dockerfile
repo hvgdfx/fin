@@ -3,7 +3,7 @@
 FROM ccr.ccs.tencentyun.com/library/nginx:latest
 
 add nginx.conf /etc/nginx/conf.d/https.conf
-add big.html /etc/nginx/big.html
+add big.html /usr/share/nginx/html/big.html
 
 # CMD ["/usr/sbin/nginx", "-c", "/nginx.conf", "-g", "daemon off;"]
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
