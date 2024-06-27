@@ -30,4 +30,5 @@ WORKDIR /root/ton/build
 
 COPY config.json /root/ton/build/config.json
 
-CMD ["./ton_node", "--config", "config.json"]
+# CMD ["./ton_node", "--config", "config.json"]
+CMD ["sh", "-c", "while true; do sleep 1; done"]
