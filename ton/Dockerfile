@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install -y tzdata && \
     ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
-    apt-get install -y build-essential cmake git libssl-dev zlib1g-dev
+    apt-get install -y build-essential cmake git libssl-dev zlib1g-dev pkg-config
 
 # WORKDIR /root
 
