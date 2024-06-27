@@ -10,17 +10,20 @@ RUN apt-get update && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
     apt-get install -y build-essential cmake git libssl-dev zlib1g-dev
 
-WORKDIR /root
+# WORKDIR /root
 
-RUN git clone https://github.com/ton-blockchain/ton.git && \
-    cd ton && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make
+# RUN git clone https://github.com/ton-blockchain/ton.git && \
+#     cd ton && \
+#     mkdir build && \
+#     cd build && \
+#     cmake .. && \
+#     make
 
-WORKDIR /root/ton/build
+# WORKDIR /root/ton/build
 
-COPY config.json /root/ton/build/config.json
+# COPY config.json /root/ton/build/config.json
 
-CMD ["./ton_node", "--config", "config.json"]
+# CMD ["./ton_node", "--config", "config.json"]
+CMD ["sh", "-c", "while true; do sleep 1; done"]
+
+
