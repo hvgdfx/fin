@@ -13,18 +13,18 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # 下载和放置第三方库
-WORKDIR /root/ton/third-party
-RUN git clone https://github.com/abseil/abseil-cpp.git && \
-    git clone https://github.com/google/crc32c.git && \
-    git clone https://github.com/facebook/rocksdb.git
+# WORKDIR /root/ton/third-party
+# RUN git clone https://github.com/abseil/abseil-cpp.git && \
+#     git clone https://github.com/google/crc32c.git && \
+#     git clone https://github.com/facebook/rocksdb.git
 
-# 构建项目
-WORKDIR /root/ton
-RUN git clone https://github.com/ton-blockchain/ton.git . && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make
+# # 构建项目
+# WORKDIR /root/ton
+# RUN git clone https://github.com/ton-blockchain/ton.git . && \
+#     mkdir build && \
+#     cd build && \
+#     cmake .. && \
+#     make
 
 WORKDIR /root/ton/build
 
