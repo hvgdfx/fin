@@ -12,5 +12,7 @@ docker run -d --name ${name} \
     -p 443:443 \
     -v /data/wuchang/dalinghua.cn.key:/etc/nginx/certs/dalinghua.cn.key \
     -v /data/wuchang/dalinghua.cn.pem:/etc/nginx/certs/dalinghua.cn.pem \
+    -v /data/wuchang/test.dalinghua.cn.key:/etc/nginx/certs/test.dalinghua.cn.key \
+    -v /data/wuchang/test.dalinghua.cn.pem:/etc/nginx/certs/test.dalinghua.cn.pem \
     --user root \
     ${name}:1.0
