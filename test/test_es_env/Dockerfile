@@ -1,5 +1,7 @@
 FROM elasticsearch:8.14.3
 
+USER root
+
 WORKDIR /data
 ADD . /data
 
