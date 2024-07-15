@@ -6,11 +6,12 @@ FROM elasticsearch:8.14.3
 # 生成自签名证书
 # 生成 JKS 文件
 # 将 PKCS12 文件导入到 JKS
-RUN openssl genrsa -out server.key 2048 \
-    && openssl req -new -key server.key -out server.csr \
-    && openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt \
-    && openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12 -name "server" \
-    && /usr/share/elasticsearch/jdk/bin/keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12 
+
+# RUN openssl genrsa -out server.key 2048 \
+#     && openssl req -new -key server.key -out server.csr \
+#     && openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt \
+#     && openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12 -name "server" \
+#     && /usr/share/elasticsearch/jdk/bin/keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12 
 
 # /usr/share/elasticsearch/jdk/bin/keytool -importkeystore -srckeystore server.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS
 
