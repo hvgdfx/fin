@@ -16,9 +16,10 @@ docker network create es
 docker run -d --name elasticsearch --network es \
     -e "discovery.type=single-node" \
 	-p 9200:9200 \
-	-e xpack.security.enabled=false \
+	-e xpack.security.enabled=true \
 	-e xpack.security.enrollment.enabled=true \
-	-e xpack.security.http.ssl.enabled=false \
+	-e xpack.security.http.ssl.keystore.path="keystore.jks" \
+	-e xpack.security.http.ssl.keystore.password="123456" \
 	elasticsearch:8.14.3
 
 docker run -d --name kibana --network es \
