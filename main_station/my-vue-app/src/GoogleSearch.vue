@@ -26,7 +26,8 @@
     methods: {
       performSearch() {
         if (this.query.trim()) {
-          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(this.query)}`;
+          // window.location.href = `https://www.google.com/search?q=${encodeURIComponent(this.query)}`;
+          window.location.href = `https://local.so.v.ifeng.com/search/ifeng-search-server/all/searchIndices?k=${encodeURIComponent(this.query)}`;
         } else {
           alert('Please enter a search term.');
         }
