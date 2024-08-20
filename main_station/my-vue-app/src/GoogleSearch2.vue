@@ -27,6 +27,8 @@
   <script>
   import axios from 'axios';
   
+  const apiUrl = process.env.VUE_APP_API_BASE_URL || 'http://localhost:8080';
+
   export default {
     name: 'App',
     data() {
@@ -40,7 +42,7 @@
         try {
           console.log('API Base URL:', process.env.VUE_APP_API_BASE_URL);
           console.log('Current environment:', process.env.NODE_ENV);
-          const response = await axios.get('/search/ifeng-search-server/all/searchIndices', {
+          const response = await axios.get('${apiUrl}/search/ifeng-search-server/all/searchIndices', {
             params: { k: this.query } // 将搜索关键词传递给接口
           });
           this.results = response.data.items; // 假设接口返回的搜索结果存储在 `items` 中
