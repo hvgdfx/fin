@@ -38,12 +38,12 @@
     methods: {
       async performSearch() {
         try {
+          console.log('Current environment:', process.env.NODE_ENV);
           const response = await axios.get('/search/ifeng-search-server/all/searchIndices', {
             params: { k: this.query } // 将搜索关键词传递给接口
           });
           this.results = response.data.items; // 假设接口返回的搜索结果存储在 `items` 中
           console.log('result.length: ', this.results.length)
-          console.log('Current environment:', process.env.NODE_ENV);
         } catch (error) {
           console.error('Error fetching search results:', error);
         }
