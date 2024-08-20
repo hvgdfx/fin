@@ -6,7 +6,8 @@ module.exports = defineConfig({
       '/search': {
         target: 'https://local.so.v.ifeng.com',
         changeOrigin: true,
-        pathRewrite: { '^/search': '' }
+        pathRewrite: { '^/search': '' },
+        logLevel: 'debug'
       }
     }
   }
