@@ -8,11 +8,12 @@ RUN npm install --registry=https://registry.npmmirror.com
 COPY . . /app/
 RUN npm run build 
 
-FROM nginx:stable 
+# FROM nginx:stable 
 
-COPY --from=build /app/dist /usr/share/nginx/html 
+# COPY --from=build /app/dist /usr/share/nginx/html 
 
-EXPOSE 80 
+# EXPOSE 80 
 
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "while true; do sleep 1; done"]
 
