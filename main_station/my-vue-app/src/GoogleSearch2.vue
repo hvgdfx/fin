@@ -42,6 +42,7 @@
             params: { k: this.query } // 将搜索关键词传递给接口
           });
           this.results = response.data.items; // 假设接口返回的搜索结果存储在 `items` 中
+          console.log('result.length: ', results.length)
         } catch (error) {
           console.error('Error fetching search results:', error);
         }
