@@ -38,6 +38,7 @@
     methods: {
       async performSearch() {
         try {
+          console.log('API Base URL:', process.env.VUE_APP_API_BASE_URL);
           console.log('Current environment:', process.env.NODE_ENV);
           const response = await axios.get('/search/ifeng-search-server/all/searchIndices', {
             params: { k: this.query } // 将搜索关键词传递给接口
