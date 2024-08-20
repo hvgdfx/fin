@@ -38,7 +38,7 @@
     methods: {
       async performSearch() {
         try {
-          const response = await axios.get('https://local.so.v.ifeng.com/search/ifeng-search-server/all/searchIndices', {
+          const response = await axios.get('/search/ifeng-search-server/all/searchIndices', {
             params: { k: this.query } // 将搜索关键词传递给接口
           });
           this.results = response.data.items; // 假设接口返回的搜索结果存储在 `items` 中
