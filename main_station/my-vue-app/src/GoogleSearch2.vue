@@ -27,7 +27,6 @@
   <script>
   import axios from 'axios';
   
-  const apiUrl = process.env.VUE_APP_API_BASE_URL || 'http://localhost:8080';
 
   export default {
     name: 'App',
@@ -40,6 +39,7 @@
     methods: {
       async performSearch() {
         try {
+          const apiUrl = process.env.VUE_APP_API_BASE_URL || 'http://localhost:8080';
           console.log('API Base URL:', process.env.VUE_APP_API_BASE_URL);
           console.log('Current environment:', process.env.NODE_ENV);
           const response = await axios.get('${apiUrl}/search/ifeng-search-server/all/searchIndices', {
